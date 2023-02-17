@@ -1,4 +1,4 @@
-﻿// For more information see https://aka.ms/fsharp-console-apps
+﻿
 let rec factorial acc x =
     if x = 1 then acc else factorial (acc * x) (x - 1)
 
@@ -13,3 +13,11 @@ let fib n =
     fib2 1 0 n 1
 
 printfn $"Число фибоначчи под номером 40: {fib 40}"
+let reverse ls=
+    let rec reverseRec newLs ls i len=
+        if i=len then newLs
+        else reverseRec (List.head ls :: newLs) (List.tail ls) (i+1) len
+    reverseRec [] ls 0 ls.Length
+printf $"{reverse [1;2;3;4;5]}"
+    
+    
