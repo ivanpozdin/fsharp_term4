@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40EE4904-A0F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E37AEA56-1468-40B3-B75B-F549E682E4F4}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HW1_Task1", "HW1_Task1\HW1_Task1.fsproj", "{13CFD268-72B2-4B85-9C6D-6BD250135E28}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HW1", "HW1\HW1.fsproj", "{13CFD268-72B2-4B85-9C6D-6BD250135E28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
