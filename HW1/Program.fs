@@ -1,10 +1,14 @@
 ﻿// 1. Реализовать функцию вычисления факториала.
 printfn "ЗАДАНИЕ1"
 
-let rec factorial acc x =
-    if x = 1 then acc else factorial (acc * x) (x - 1)
+let factorial n =
+    let rec factorialRec acc x =
+        if x = 0 then acc else factorialRec (acc * x) (x - 1)
 
-printfn $"Факториал числа 16:  {factorial 1 16}"
+    factorialRec 1 n
+
+printfn $"Факториал числа 0:   {factorial 0}"
+printfn $"Факториал числа 16:  {factorial 16}"
 printfn ""
 
 
@@ -12,12 +16,10 @@ printfn ""
 printfn "ЗАДАНИЕ2"
 
 let fib n =
-    let rec fib2 a b n curN =
-        if n <= 0 then 0
-        else if curN = n then a
-        else fib2 (a + b) a n (curN + 1)
+    let rec fib2 a b n =
+        if n = 1 then a else fib2 (a + b) a (n - 1)
 
-    fib2 1 0 n 1
+    if n <= 0 then 0 else fib2 1 0 n
 
 printfn $"Число Фибоначчи под номером 40:  {fib 40}"
 printfn ""
@@ -27,16 +29,16 @@ printfn ""
 printfn "ЗАДАНИЕ3"
 
 let reverse ls =
-    let rec reverseRec newLs ls i len =
-        if i = len then
+    let rec reverseRec newLs ls i =
+        if ls=[] then
             newLs
         else
-            reverseRec (List.head ls :: newLs) (List.tail ls) (i + 1) len
+            reverseRec (List.head ls :: newLs) (List.tail ls) (i + 1)
 
-    reverseRec [] ls 0 ls.Length
+    reverseRec [] ls 0
 
 printf "Обращение списка [1;2;3;4;5]:  "
-reverse [ 1; 2; 3; 4; 5 ] |> List.iter (printf "%d ")
+printf $"%A{reverse [ 1; 2; 3; 4; 5 ]}"
 printfn "\n"
 
 
@@ -65,10 +67,10 @@ printfn "\n"
 
 // 5. Реализовать функцию, выдаёющую 1 позицию вхождения заданного числа в список.
 printfn "ЗАДАНИЕ5"
-
+ 
 let rec firstPosition t num (ls: _ list) =
-    if t >= List.length ls then -1
-    else if ls.[t] = num then t
+    if t >= List.length ls then None
+    else if ls.[t] = num then option.Some(t)
     else firstPosition (t + 1) num ls
 
 printfn $"Позиция числа 5 в списке [1;2;3;0;0;7;2;0;735]:  {firstPosition 0 5 [ 1; 2; 3; 0; 0; 7; 2; 0; 735 ]}"
