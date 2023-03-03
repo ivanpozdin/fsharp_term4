@@ -1,4 +1,6 @@
 ﻿// 1. Реализовать функцию вычисления факториала.
+
+
 printfn "ЗАДАНИЕ1"
 
 let factorial n =
@@ -8,8 +10,7 @@ let factorial n =
     factorialRec 1 n
 
 printfn $"Факториал числа 0:   {factorial 0}"
-printfn $"Факториал числа 16:  {factorial 16}"
-printfn ""
+printfn $"Факториал числа 16:  {factorial 16}\n"
 
 
 // 2. Реализовать функцию вычисления числа Фибоначчи (за линейное время).
@@ -19,59 +20,70 @@ let fib n =
     let rec fib2 a b n =
         if n = 1 then a else fib2 (a + b) a (n - 1)
 
-    if n <= 0 then 0 else fib2 1 0 n
+    if n <= 0 then None else Some(fib2 1 0 n)
 
-printfn $"Число Фибоначчи под номером 40:  {fib 40}"
+let printFib n =
+    match fib n with
+    | None -> printfn "n должно быть больше 0."
+    | t -> printfn $"Число Фибоначчи под номером {n} равно {t.Value}"
+
+printFib 40
 printfn ""
-
 
 // 3. Реализовать функцию обращения списка (за линейное время).
 printfn "ЗАДАНИЕ3"
 
 let reverse ls =
     let rec reverseRec newLs ls i =
-        if ls=[] then
+        if ls = [] then
             newLs
         else
             reverseRec (List.head ls :: newLs) (List.tail ls) (i + 1)
 
     reverseRec [] ls 0
 
-printf "Обращение списка [1;2;3;4;5]:  "
-printf $"%A{reverse [ 1; 2; 3; 4; 5 ]}"
-printfn "\n"
+printf "Обращение списка [1; 2; 3; 4; 5]:  "
+printfn $"%A{reverse [ 1; 2; 3; 4; 5 ]}\n"
 
 
 // 4. Реализовать функцию, принимающую на вход n и m и возвращающую список из эл-тов [2^n; 2^(n + 1); ...; 2^(n + m)].
 printfn "ЗАДАНИЕ4"
 
-let rec powersOfTwo t acc n =
-    if t > n then
-        acc
-    else
-        powersOfTwo (t + 1) (acc @ [ acc.[t / 2] * acc.[t / 2] * (1 + (if (t % 2 <> 0) then 1 else 0)) ]) n
-
-let rec getRequestedList t acc n m (ls: _ list) =
-    if t > m then
-        acc
-    else
-        getRequestedList (t + 1) (acc @ [ ls.[n] * ls.[t] ]) n m ls
-
 let listNM n m =
-    getRequestedList 0 [] n m (powersOfTwo 1 [ 1 ] (max n m))
+    let rec listRec ls acc =
+        match acc with
+        | 1 -> ls
+        | _ -> listRec ((List.head ls) * 2 :: ls) (acc - 1)
 
-printf "n=3 m=7 список из эл-тов [2^n; 2^(n + 1); ...; 2^(n + m)]:  "
-(listNM 3 7) |> List.iter (printf "%d ")
-printfn "\n"
+    if n <= m then
+        Some(reverse (listRec [ pown 2 n ] (m - n)))
+    else
+        None
 
+let printListNM n m =
+    match listNM n m with
+    | None -> printfn "n обязано быть не больше m."
+    | t -> printfn $"Список степеней 2 с показателями от {n} до {m}:  %A{t.Value}"
+
+printListNM 10 20
+printfn ""
 
 // 5. Реализовать функцию, выдаёющую 1 позицию вхождения заданного числа в список.
 printfn "ЗАДАНИЕ5"
- 
-let rec firstPosition t num (ls: _ list) =
-    if t >= List.length ls then None
-    else if ls.[t] = num then option.Some(t)
-    else firstPosition (t + 1) num ls
 
-printfn $"Позиция числа 5 в списке [1;2;3;0;0;7;2;0;735]:  {firstPosition 0 5 [ 1; 2; 3; 0; 0; 7; 2; 0; 735 ]}"
-printfn $"Позиция числа 5 в списке [1;2;3;0;5;7;2;0;735]:  {firstPosition 0 5 [ 1; 2; 3; 0; 5; 7; 2; 0; 735 ]}"
+let firstPosition num ls =
+    let rec firstPositionRec num ls i =
+        match ls with
+        | [] -> None
+        | ls when (num = List.head ls) -> Some(i)
+        | _ -> firstPositionRec num (List.tail ls) (i + 1)
+
+    firstPositionRec num ls 0
+
+let printFirstPosition num ls =
+    match firstPosition num ls with
+    | None -> printfn $"Числа {num} в списке %A{ls} нет."
+    | t -> printfn $"Позиция числа {num} в списке %A{ls}: %i{t.Value}."
+
+printFirstPosition 5 [ 1; 2; 3; 0; 5; 7; 2; 0; 735 ]
+printFirstPosition 5 [ 1; 2; 3; 0; 267; 7; 2; 0; 735 ]
