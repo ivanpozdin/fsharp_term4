@@ -53,7 +53,7 @@ let listNM n m =
     let rec listRec ls acc =
         match acc with
         | 1 -> ls
-        | _ -> listRec ((List.head ls) * 2 :: ls) (acc - 1)
+        | _ -> listRec (List.head ls * 2 :: ls) (acc - 1)
 
     if n <= m then
         Some(reverse (listRec [ pown 2 n ] (m - n)))
