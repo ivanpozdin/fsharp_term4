@@ -83,7 +83,7 @@ let firstPosition num ls =
 let printFirstPosition num ls =
     match firstPosition num ls with
     | None -> printfn $"Числа {num} в списке %A{ls} нет."
-    | t -> printfn $"Позиция числа {num} в списке %A{ls}: %i{t.Value}."
+    | Some t -> printfn $"Позиция числа {num} в списке %A{ls}: %i{t}."
 
 printFirstPosition 5 [ 1; 2; 3; 0; 5; 7; 2; 0; 735 ]
 printFirstPosition 5 [ 1; 2; 3; 0; 267; 7; 2; 0; 735 ]
