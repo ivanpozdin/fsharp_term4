@@ -75,7 +75,7 @@ let firstPosition num ls =
     let rec firstPositionRec num ls i =
         match ls with
         | [] -> None
-        | ls when (num = List.head ls) -> Some(i)
+        | ls when num = List.head ls -> Some(i)
         | _ -> firstPositionRec num (List.tail ls) (i + 1)
 
     firstPositionRec num ls 0
