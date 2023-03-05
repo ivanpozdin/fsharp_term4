@@ -63,7 +63,7 @@ let listNM n m =
 let printListNM n m =
     match listNM n m with
     | None -> printfn "n обязано быть не больше m."
-    | t -> printfn $"Список степеней 2 с показателями от {n} до {m}:  %A{t.Value}"
+    | Some t -> printfn $"Список степеней 2 с показателями от {n} до {m}:  %A{t}"
 
 printListNM 10 20
 printfn ""
