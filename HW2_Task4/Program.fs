@@ -7,13 +7,13 @@
     if n < 2I then false else loop 2I
 
 let primes =
-    let findNextPrime n =
+    let unfoldNextPrime n =
         let rec findNextPrimeRec m =
             if isPrime m then m else findNextPrimeRec (m + 1I)
 
         let nextPrime = findNextPrimeRec (n + 2I)
         Some(nextPrime, nextPrime)
 
-    Seq.unfold findNextPrime 2I |> Seq.append { 2I .. 3I }
+    Seq.unfold unfoldNextPrime 2I |> Seq.append { 2I .. 3I }
 
 primes |> Seq.take 150 |> Seq.iter (printfn "%A")
