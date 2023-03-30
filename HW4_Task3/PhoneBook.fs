@@ -8,23 +8,22 @@ type Entry = { Name: string; Phone: string }
 
 let addEntryToList name phone ls = { Name = name; Phone = phone } :: ls
 
-let getEntryListFromFile fileName =
-    File.ReadAllText(fileName) |> JsonConvert.DeserializeObject<List<Entry>>
+let getEntryListFromFile filePath =
+    File.ReadAllText(filePath) |> JsonConvert.DeserializeObject<List<Entry>>
 
-let getName () = Console.ReadLine()
+let savePhoneBookToFile (data: List<Entry>) filePath =
+    let json = JsonConvert.SerializeObject data
+    File.WriteAllText(filePath, json)
 
-let getFileName () = Console.ReadLine()
+let getLineFor (message: string) =
+    printfn $"{message}"
+    Console.ReadLine()
 
-let getCommand () =
-    Console.WriteLine("Enter command:")
-    Console.ReadLine() |> int
+let getCommand () = getLineFor "Enter command: " |> int
 
 let getEntry () =
-    Console.WriteLine("Enter name:")
-    let name = Console.ReadLine()
-    Console.WriteLine("Enter phone:")
-    let phone = Console.ReadLine()
-    { Name = name; Phone = phone }
+    { Name = (getLineFor "Enter name: ")
+      Phone = (getLineFor "Enter phone: ") }
 
 let rec findPhoneByName (data: List<Entry>) name =
     if data = [] then ""
@@ -44,21 +43,23 @@ let rec printPhoneBook (data: List<Entry>) =
         printPhoneBook data.Tail
 
 
-let rec start command (data: List<Entry>) fileName =
+let rec start (data: List<Entry>) filePath command =
     match command with
     | 0 -> null
-    | 1 -> start (getCommand ()) (getEntry () :: data) fileName
+    | 1 -> start (getEntry () :: data) filePath (getCommand ())
     | 2 ->
-        printfn $"{findPhoneByName data (getName ())}"
-        start (getCommand ()) data fileName
+        let name = getLineFor "Enter name: "
+        printfn $"{findPhoneByName data name}"
+        start data filePath (getCommand ())
     | 3 ->
-        printfn $"{findNameByPhone data (getName ())}"
-        start (getCommand ()) data fileName
+        let phone = getLineFor "Enter phone: "
+        printfn $"{findNameByPhone data phone}"
+        start data filePath (getCommand ())
     | 4 ->
         printPhoneBook data
-        start (getCommand ()) data fileName
+        start data filePath (getCommand ())
     | 5 ->
-        let json = JsonConvert.SerializeObject data
-        File.WriteAllText(fileName, json)
-        start (getCommand ()) data fileName
-    | 6 -> start (getCommand ()) (getEntryListFromFile fileName) fileName
+        savePhoneBookToFile data filePath
+        start data filePath (getCommand ())
+    | 6 -> start (getEntryListFromFile filePath) filePath (getCommand ())
+    | _ -> start data filePath (getCommand ())
