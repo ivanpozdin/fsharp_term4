@@ -1,11 +1,14 @@
-﻿// For more information see https://aka.ms/fsharp-console-apps
+﻿module HW5.Virus_Simulation
+// For more information see https://aka.ms/fsharp-console-apps
 open System
 
 type Computer(os: string, ip: string) =
     let dictOS =
         dict["Windows", 0.7
              "Linux", 0.9
-             "MacOS", 0.4]
+             "MacOS", 0.4
+             "YesToVirus", 1
+             "NoToVirus", 0]
 
     member this.OS = os
     member this.ip = ip
@@ -57,6 +60,6 @@ let c3 = Computer("Windows", "3")
 let c4 = Computer("MacOS", "4")
 let c5 = Computer("Linux", "5")
 
-let n = [ c1, c2; c2, c3; c3, c4; c4, c5 ]
+let neighbours = [ c1, c2; c2, c3; c3, c4; c4, c5 ]
 
-simulate [ c1 ] n 1 [ c1; c2; c3; c4; c5 ]
+simulate [ c1 ] neighbours 1 [ c1; c2; c3; c4; c5 ]
