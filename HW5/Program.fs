@@ -12,16 +12,8 @@ type Computer(os: string, ip: string) =
     member this.probability = dictOS.Item(os)
 
 let doWithProbability (probability: float) =
-    let rnd = new Random()
-    let r = rnd.Next(1, 100)
+    (float (Random().Next(1, 100))) <= probability * (float 100)
 
-    if (float r) <= probability * (float 100) then
-        true
-    else
-        false
-
-// Функция должна возваратить обновлённый список инфецированных.
-// Т.е. Она должна пройт
 let rec oneStepInfect (infected: List<Computer>) (neighbours: List<Computer * Computer>) (newInfected: List<Computer>) =
     if neighbours = [] then
         newInfected
@@ -43,21 +35,21 @@ let rec oneStepInfect (infected: List<Computer>) (neighbours: List<Computer * Co
 
 let rec printElements (ls: List<Computer>) =
     if ls = [] then
-        printfn ""
+        ()
     else
         printfn $"{ls.Head.ip}"
         printElements ls.Tail
 
 
 
-let rec simulate (infected: List<Computer>) (neighbours: List<Computer * Computer>) step allComputer =
+let rec simulate (infected: List<Computer>) (neighbours: List<Computer * Computer>) step allComputers =
     System.Threading.Thread.Sleep(1500)
     let newInfected = infected @ (oneStepInfect infected neighbours [])
     printfn $"Infected computers on step: {step}"
     printElements newInfected
 
-    if newInfected <> allComputer then
-        simulate newInfected neighbours (step + 1) allComputer
+    if newInfected <> allComputers then
+        simulate newInfected neighbours (step + 1) allComputers
 
 let c1 = Computer("Linux", "1")
 let c2 = Computer("Linux", "2")
