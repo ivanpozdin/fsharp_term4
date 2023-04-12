@@ -1,8 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HW6", "HW6\HW6.fsproj", "{F7B9C73C-8B04-4352-A206-A0DE182D7CC0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HW6_Test", "HW6_Test\HW6_Test.fsproj", "{C3B37F63-48CB-4C82-BF58-007BFEA1AF61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7B9C73C-8B04-4352-A206-A0DE182D7CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B9C73C-8B04-4352-A206-A0DE182D7CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B9C73C-8B04-4352-A206-A0DE182D7CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B9C73C-8B04-4352-A206-A0DE182D7CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B37F63-48CB-4C82-BF58-007BFEA1AF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B37F63-48CB-4C82-BF58-007BFEA1AF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B37F63-48CB-4C82-BF58-007BFEA1AF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B37F63-48CB-4C82-BF58-007BFEA1AF61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
